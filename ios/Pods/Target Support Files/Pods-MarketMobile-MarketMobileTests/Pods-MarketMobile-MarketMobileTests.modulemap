@@ -1,0 +1,6 @@
+module Pods_MarketMobile_MarketMobileTests {
+  umbrella header "Pods-MarketMobile-MarketMobileTests-umbrella.h"
+
+  export *
+  module * { export * }
+}
