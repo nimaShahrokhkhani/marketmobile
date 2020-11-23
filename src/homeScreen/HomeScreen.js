@@ -1,5 +1,6 @@
 import * as React from 'react';
 import {View, Button, Text, Image, StyleSheet, SafeAreaView} from 'react-native';
+import {i18n} from '../utils/i18n/I18n'
 
 
 export class HomeScreen extends React.Component {
@@ -30,7 +31,7 @@ export class HomeScreen extends React.Component {
             <SafeAreaView>
                 <View>
 
-                    <Text>helo world</Text>
+                    <Text>{i18n('HomeScreen.text', 'en_us')}</Text>
                     <Button
                         title="productsScreen"
                         onPress={this.navigateToProductScreen}
