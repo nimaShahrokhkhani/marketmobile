@@ -2,7 +2,7 @@ import 'react-native-gesture-handler';
 import * as React from 'react';
 import { NavigationContainer } from '@react-navigation/native';
 import { createStackNavigator } from '@react-navigation/stack';
-import {HomeScreen} from './src/homeScreen/HomeScreen'
+import HomeScreen from './src/homeScreen/HomeScreen'
 import {ProductScreen} from "./src/productsScreen/ProductScreen";
 import {StyleSheet, Text, View, ScrollView, Dimensions, Image, Button} from 'react-native';
 import { createAppContainer, SafeAreaView } from 'react-navigation';

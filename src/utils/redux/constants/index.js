@@ -1,0 +1,1 @@
+export const CURRENT_LOCALE = 'CURRENT_LOCALE';
