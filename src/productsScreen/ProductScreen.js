@@ -1,24 +1,17 @@
 import * as React from 'react';
 import {View, Text, SafeAreaView, Button, Image, StyleSheet} from 'react-native';
+import {i18n} from "../utils/i18n/I18n";
+import {connect} from 'react-redux';
+import {bindActionCreators} from 'redux';
+import * as localeActions from '../utils/redux/actions/changeLocale';
 
 
-export class ProductScreen extends React.Component {
-
-    static navigationOptions = {
-        drawerLabel: 'Products',
-        drawerIcon: ({tintColor}) => (
-            <Image
-                source={require('../images/notif-icon.png')}
-                style={[styles.icon, {tintColor: tintColor}]}
-            />
-        ),
-    };
-
-    constructor(props) {
-        super(props);
-    }
+class ProductScreen extends React.Component {
 
     componentDidMount() {
+        this.props.navigation.setParams({
+            locale :this.props.locale
+        });
     }
 
     navigateToProductDetailScreen = () => {
@@ -48,3 +41,18 @@ const styles = StyleSheet.create({
         height: 24,
     },
 });
+
+const mapStateToProps = state => ({
+    locale: state.locale.locale,
+});
+
+const ActionCreators = Object.assign(
+    {},
+    localeActions,
+);
+
+const mapDispatchToProps = dispatch => ({
+    actions: bindActionCreators(ActionCreators, dispatch),
+});
+
+export default connect(mapStateToProps, mapDispatchToProps)(ProductScreen)

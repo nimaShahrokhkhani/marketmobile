@@ -4,18 +4,16 @@ import React from 'react';
 import {connect} from 'react-redux';
 import {bindActionCreators} from 'redux';
 import * as localeActions from '../utils/redux/actions/changeLocale';
+import BaseScreen from "../baseScreen/BaseScreen";
+import Carousel from 'react-native-snap-carousel';
 
 class HomeScreen extends React.Component {
 
-    static navigationOptions = {
-        drawerLabel: 'Home',
-        drawerIcon: ({tintColor}) => (
-            <Image
-                source={require('../images/notif-icon.png')}
-                style={[styles.icon, {tintColor: tintColor}]}
-            />
-        ),
-    };
+    componentDidMount() {
+        this.props.navigation.setParams({
+            locale :this.props.locale
+        });
+    }
 
     changeLocale() {
         let {locale, actions} = this.props;
@@ -25,25 +23,22 @@ class HomeScreen extends React.Component {
     render() {
         const {locale} = this.props;
         return (
-            <SafeAreaView>
-                <View styles={styles.container}>
-                    <Text>{i18n('HomeScreen.text', locale)}</Text>
-                    <Text>{locale}</Text>
-                    <Button
-                        title="Change Locale"
-                        onPress={() => this.changeLocale()}
-                    />
+            <BaseScreen navigation={this.props.navigation}>
+                <View style={styles.container}>
+
                 </View>
-            </SafeAreaView>
+            </BaseScreen>
         );
     }
 }
 
 const styles = StyleSheet.create({
     container: {
-        flex: 1,
-        justifyContent: 'center',
-        alignItems: 'center'
+        flex: 1
+    },
+    topBar: {
+        height: 50,
+        backgroundColor: 'red'
     },
     icon: {
         width: 24,
