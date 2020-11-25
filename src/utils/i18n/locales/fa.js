@@ -7,6 +7,11 @@ export default {
         loginOrSignIn: 'ورود / ثبت نام'
     },
     HomeScreen: {
-        text: 'سلام به همه!!!'
+        top‌Brands: 'برند های برتر',
+        bestSeller: 'محصولات پرفروش',
+        newCollection: 'جدیدترین محصولات',
+    },
+    General: {
+        currency: 'تومان'
     }
 }

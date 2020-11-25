@@ -18,12 +18,14 @@ const MyDrawerNavigator = createDrawerNavigator({
     HomeScreen: {
         screen: HomeScreen,
         navigationOptions: (props) => {
-            return({
-                drawerLabel: i18n('Menu.Home', props.screenProps.locale),
+            return ({
+                drawerLabel: () => (
+                    <Text style={{fontFamily: 'IRANSansMobileFaNum-Bold'}}>{i18n('Menu.Home', props.screenProps.locale)}</Text>
+                ),
                 drawerIcon: ({tintColor}) => (
                     <Image
                         source={require('./src/images/home.png')}
-                        style={[styles.icon, {tintColor: tintColor}]}
+                        style={[styles.iconMenu, {tintColor: tintColor}]}
                     />
                 ),
             })
@@ -32,12 +34,14 @@ const MyDrawerNavigator = createDrawerNavigator({
     ProductScreen: {
         screen: ProductScreen,
         navigationOptions: (props) => {
-            return({
-                drawerLabel: i18n('Menu.Products', props.screenProps.locale),
+            return ({
+                drawerLabel: () => (
+                    <Text style={{fontFamily: 'IRANSansMobileFaNum-Bold'}}>{i18n('Menu.Products', props.screenProps.locale)}</Text>
+                ),
                 drawerIcon: ({tintColor}) => (
                     <Image
                         source={require('./src/images/list.png')}
-                        style={[styles.icon, {tintColor: tintColor}]}
+                        style={[styles.iconMenu, {tintColor: tintColor}]}
                     />
                 ),
             })
@@ -48,21 +52,23 @@ const MyDrawerNavigator = createDrawerNavigator({
     },
 }, {
     contentComponent: (props) => (
-        <SafeAreaView>
-            <View style={styles.drawerTopBar}>
-                <TouchableOpacity style={styles.contactContainer}>
-                    <Text style={{
-                        color: '#fff',
-                        marginEnd: 10
-                    }}>{i18n('DrawerMenu.loginOrSignIn', props.screenProps.locale)}</Text>
-                    <Image source={require('./src/images/contact.png')}
-                           style={styles.icon}/>
-                </TouchableOpacity>
-            </View>
-            <ScrollView>
-                <DrawerItems {...props} />
-            </ScrollView>
-        </SafeAreaView>
+        <View style={{flex: 1}}>
+            <SafeAreaView style={{flex: 1, backgroundColor: '#13213c'}}>
+                <View style={styles.drawerTopBar}>
+                    <TouchableOpacity style={styles.contactContainer}>
+                        <Text style={{
+                            color: '#fff',
+                            marginEnd: 10
+                        }}>{i18n('DrawerMenu.loginOrSignIn', props.screenProps.locale)}</Text>
+                        <Image source={require('./src/images/contact.png')}
+                               style={styles.icon}/>
+                    </TouchableOpacity>
+                </View>
+                <ScrollView style={{flex: 1, backgroundColor: 'rgba(252,251,245,1)'}}>
+                    <DrawerItems {...props} />
+                </ScrollView>
+            </SafeAreaView>
+        </View>
     ),
     drawerPosition: "right",
     contentOptions: {
@@ -75,7 +81,15 @@ const MyDrawerNavigator = createDrawerNavigator({
         },
         itemStyle: {
             flexDirection: 'row-reverse'
-        }
+        },
+        bottomView: {
+            backgroundColor: '#13213c',
+            flex: 0
+        },
+        topView: {
+            backgroundColor: '#13213c',
+            flex: 0
+        },
     },
 });
 
@@ -103,6 +117,12 @@ const styles = StyleSheet.create({
         tintColor: '#fff',
         width: 20,
         height: 20
+    },
+    iconMenu: {
+        tintColor: '#fff',
+        width: 20,
+        height: 20,
+        margin: 20
     },
     contactContainer: {
         flexDirection: 'row',

@@ -7,6 +7,11 @@ export default {
         loginOrSignIn: 'Login / SignIn'
     },
     HomeScreen: {
-        text: 'hello world'
+        top‌Brands: 'Top Brands',
+        bestSeller: 'Best Seller',
+        newCollection: 'New Collection',
+    },
+    General: {
+        currency: 'Tomans'
     }
 }
