@@ -1,4 +1,4 @@
-import {View, Text, Dimensions, Image, StyleSheet, ScrollView, FlatList, Platform} from 'react-native';
+import {View, Text, Dimensions, Image, StyleSheet, ScrollView, FlatList, Platform, TouchableOpacity} from 'react-native';
 import {i18n} from '../utils/i18n/I18n'
 import React from 'react';
 import {connect} from 'react-redux';
@@ -83,6 +83,10 @@ class HomeScreen extends React.Component {
         actions.changeLocale(locale === 'en_us' ? 'fa_ir' : 'en_us');
     }
 
+    navigateToProductDetailScreen = (item) => {
+        this.props.navigation.navigate('ProductDetailsScreen', {product: item})
+    };
+
     renderBannerSliderItem = ({item, index}) => {
         return (
             <Image style={{
@@ -109,7 +113,7 @@ class HomeScreen extends React.Component {
     renderBestProductItem = ({item}) => {
         const {locale} = this.props;
         return (
-            <View style={styles.productItemContainer}>
+            <TouchableOpacity onPress={() => this.navigateToProductDetailScreen(item)} style={styles.productItemContainer}>
                 <Image style={{
                     width: (Dimensions.get('window').width / 3) - 20,
                     height: 150,
@@ -139,14 +143,14 @@ class HomeScreen extends React.Component {
                         color: '#ff5d07'
                     }}>{item.price.replace(/\B(?=(\d{3})+(?!\d))/g, ",")}</Text>
                 </View>
-            </View>
+            </TouchableOpacity>
         )
     };
 
     renderNewCollectionItem = ({item}) => {
         const {locale} = this.props;
         return (
-            <View style={styles.productItemContainer}>
+            <TouchableOpacity onPress={() => this.navigateToProductDetailScreen(item)} style={styles.productItemContainer}>
                 <Image style={{
                     width: (Dimensions.get('window').width / 3) - 20,
                     height: 150,
@@ -176,7 +180,7 @@ class HomeScreen extends React.Component {
                         color: '#ff5d07'
                     }}>{item.price.replace(/\B(?=(\d{3})+(?!\d))/g, ",")}</Text>
                 </View>
-            </View>
+            </TouchableOpacity>
         )
     };
 

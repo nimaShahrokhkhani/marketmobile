@@ -4,15 +4,16 @@ import {NavigationContainer} from '@react-navigation/native';
 import {createStackNavigator} from '@react-navigation/stack';
 import HomeScreen from './src/homeScreen/HomeScreen'
 import ProductScreen from "./src/productsScreen/ProductScreen";
+import ProductDetailsScreen from "./src/productDetailsScreen/ProductDetailsScreen";
 import {StyleSheet, Text, View, ScrollView, TouchableOpacity, Image, Button} from 'react-native';
 import {createAppContainer, SafeAreaView} from 'react-navigation';
 import {DrawerItems} from 'react-navigation-drawer';
 import {createDrawerNavigator} from 'react-navigation-drawer';
-import {ProductDetailsScreen} from "./src/productDetailsScreen/ProductDetailsScreen";
 import {i18n} from "./src/utils/i18n/I18n";
 import {connect} from 'react-redux';
 import {bindActionCreators} from 'redux';
 import * as localeActions from './src/utils/redux/actions/changeLocale';
+import ProductsCategoryScreen from "./src/productsCategoryScreen/ProductsCategoryScreen";
 
 const MyDrawerNavigator = createDrawerNavigator({
     HomeScreen: {
@@ -31,8 +32,8 @@ const MyDrawerNavigator = createDrawerNavigator({
             })
         }
     },
-    ProductScreen: {
-        screen: ProductScreen,
+    ProductsCategoryScreen: {
+        screen: ProductsCategoryScreen,
         navigationOptions: (props) => {
             return ({
                 drawerLabel: () => (
@@ -47,8 +48,22 @@ const MyDrawerNavigator = createDrawerNavigator({
             })
         }
     },
+    ProductScreen: {
+        screen: ProductScreen,
+        navigationOptions: (props) => {
+            return ({
+                drawerLabel: () => null
+            })
+        }
+    },
     ProductDetailsScreen: {
         screen: ProductDetailsScreen,
+        navigationOptions: (props) => {
+            return ({
+                drawerLabel: () => null
+            })
+        },
+        mode: 'modal'
     },
 }, {
     contentComponent: (props) => (

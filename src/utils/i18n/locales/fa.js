@@ -13,5 +13,11 @@ export default {
     },
     General: {
         currency: 'تومان'
+    },
+    ProductDetail: {
+        properties: 'مشخصات',
+        comments: 'نظرات کاربران',
+        color: 'رنگ',
+        addToShoppingCart: 'افزودن به سبد خرید'
     }
 }
