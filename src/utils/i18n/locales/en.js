@@ -14,7 +14,8 @@ export default {
         newCollection: 'New Collection',
     },
     General: {
-        currency: 'Tomans'
+        currency: 'Tomans',
+        loading: 'please wait...'
     },
     ProductDetail: {
         properties: 'Properties',
@@ -28,7 +29,10 @@ export default {
         password: 'Password',
         showPassword: 'Show password',
         forgetPassword: 'I have forgotten my password!',
-        register: 'Register'
+        register: 'Register',
+        userLoginSuccessAlertTitle: 'User Login',
+        userLoginSuccessAlertMessage: 'Successfully user signed in!!!',
+        userLoginErrorAlertMessage: 'Login Failed!!!',
     },
     Register: {
         username: 'Username',
@@ -36,6 +40,8 @@ export default {
         email: 'Email',
         phoneNumber: 'PhoneNumber',
         birthday: 'Birthday',
-        register: 'Register'
+        register: 'Register',
+        userRegisterSuccessAlertTitle: 'Register User',
+        userRegisterSuccessAlertMessage: 'Successfully user registered!!!',
     }
 }

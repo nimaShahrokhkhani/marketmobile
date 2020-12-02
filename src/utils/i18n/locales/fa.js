@@ -14,7 +14,8 @@ export default {
         newCollection: 'جدیدترین محصولات',
     },
     General: {
-        currency: 'تومان'
+        currency: 'تومان',
+        loading: 'لطفا منتظر بمانید...'
     },
     ProductDetail: {
         properties: 'مشخصات',
@@ -28,7 +29,10 @@ export default {
         password: 'کلمه عبور',
         showPassword: 'نمایش کلمه عبور',
         forgetPassword: 'کلمه عبورم را فراموش کرده ام!',
-        register: 'ثبت نام'
+        register: 'ثبت نام',
+        userLoginSuccessAlertTitle: 'ورود کاربر',
+        userLoginSuccessAlertMessage: 'ورود کاربر با موفقیت انجام شد!!!',
+        userLoginErrorAlertMessage: 'ورود کاربر با خطا مواجه شده است!!!',
     },
     Register: {
         username: 'نام کاربری',
@@ -36,6 +40,9 @@ export default {
         email: 'ایمیل',
         phoneNumber: 'شماره تلفن',
         birthday: 'تاریخ تولد',
-        register: 'ثبت نام'
+        register: 'ثبت نام',
+        userRegisterSuccessAlertTitle: 'ثبت نام کاربر',
+        userRegisterSuccessAlertMessage: 'ثبت نام کاربر با موفقیت انجام شد!!!',
+        userRegisterErrorAlertMessage: 'ثبت نام کاربر با خطا مواجه شده است!!!',
     }
 }

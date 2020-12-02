@@ -20,8 +20,10 @@ import * as localeActions from '../utils/redux/actions/changeLocale';
 import Services from "../utils/services/Services";
 import CheckBox from '@react-native-community/checkbox';
 import * as userActions from "../utils/redux/actions/userLogin";
+import {showMessage} from "react-native-flash-message";
+import Spinner from 'react-native-loading-spinner-overlay';
 
-class LoginScreen extends React.Component {
+class RegisterScreen extends React.Component {
     constructor(props) {
         super(props);
         this.state = {
@@ -34,7 +36,8 @@ class LoginScreen extends React.Component {
             isPasswordFocused: false,
             isEmailFocused: false,
             isPhoneNumberFocused: false,
-            isBirthdayFocused: false
+            isBirthdayFocused: false,
+            spinner: false
         }
     }
 
@@ -42,27 +45,53 @@ class LoginScreen extends React.Component {
 
     }
 
+    hideLoading = () => {
+        this.setState({spinner: false})
+    };
+
     signUp = () => {
-        let {user, actions} = this.props;
+        let {user, actions, locale} = this.props;
         let {username, password, email, phoneNumber, birthday} = this.state;
-        const data = new FormData();
-        data.append('username', username);
-        data.append('password', password);
-        data.append('email', email);
-        data.append('phoneNumber', phoneNumber);
-        data.append('birthday', birthday);
-        Services.insertUser(data).then((response) => {
-            actions.userLogin({
-                username,
-                password,
-                email,
-                phoneNumber,
-                birthday
+        this.setState({spinner: true}, () => {
+            const data = new FormData();
+            data.append('username', username);
+            data.append('password', password);
+            data.append('email', email);
+            data.append('phoneNumber', phoneNumber);
+            data.append('birthday', birthday);
+            Services.insertUser(data).then((response) => {
+                this.hideLoading();
+                showMessage({
+                    message: i18n('Register.userRegisterSuccessAlertTitle', locale),
+                    description: i18n('Register.userRegisterSuccessAlertMessage', locale),
+                    type: "success",
+                    style: {textAlign: 'right',  width: '100%', justifyContent: 'flex-end'},
+                    titleStyle: {textAlign: 'right', fontFamily: 'IRANSansMobileFaNum-Bold'},
+                    textStyle: {textAlign: 'right', fontFamily: 'IRANSansMobileFaNum-Light',},
+                    icon: { icon: "success", position: "right" }
+                });
+                actions.userLogin({
+                    username,
+                    password,
+                    email,
+                    phoneNumber,
+                    birthday
+                });
+                this.props.navigation.goBack(null)
+            }).catch((error) => {
+                console.log(error);
+                this.hideLoading();
+                showMessage({
+                    message: i18n('Register.userRegisterSuccessAlertTitle', locale),
+                    description: i18n('Register.userRegisterErrorAlertMessage', locale),
+                    type: "success",
+                    style: {textAlign: 'right',  width: '100%', justifyContent: 'flex-end'},
+                    titleStyle: {textAlign: 'right', fontFamily: 'IRANSansMobileFaNum-Bold'},
+                    textStyle: {textAlign: 'right', fontFamily: 'IRANSansMobileFaNum-Light',},
+                    icon: { icon: "success", position: "right" }
+                });
             });
-            this.props.navigation.goBack(null)
-        }).catch((error) => {
-            console.log(error)
-        });
+        })
     };
 
     onUsernameTextChange = (text) => {
@@ -164,6 +193,13 @@ class LoginScreen extends React.Component {
                 <SafeAreaView style={styles.topView}/>
                 <SafeAreaView>
                     <View>
+
+                        <Spinner
+                            visible={this.state.spinner}
+                            textContent={i18n('General.loading', locale)}
+                            textStyle={{fontFamily: 'IRANSansMobileFaNum-Bold', color: '#fff'}}
+                            overlayColor={'#000000dd'}
+                        />
                         <View style={styles.topBar}>
                             <View style={styles.topBarStart}>
                             </View>
@@ -399,4 +435,4 @@ const mapDispatchToProps = dispatch => ({
     actions: bindActionCreators(ActionCreators, dispatch),
 });
 
-export default connect(mapStateToProps, mapDispatchToProps)(LoginScreen)
+export default connect(mapStateToProps, mapDispatchToProps)(RegisterScreen)

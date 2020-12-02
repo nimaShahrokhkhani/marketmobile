@@ -17,6 +17,8 @@ import ProductsCategoryScreen from "./src/productsCategoryScreen/ProductsCategor
 import LoginScreen from "./src/loginScreen/LoginScreen";
 import RegisterScreen from "./src/registerScreen/RegisterScreen";
 import * as userActions from "./src/utils/redux/actions/userLogin";
+import FlashMessage from "react-native-flash-message";
+import { DrawerActions } from 'react-navigation-drawer';
 
 const MyDrawerNavigator = createDrawerNavigator({
     HomeScreen: {
@@ -102,6 +104,7 @@ const MyDrawerNavigator = createDrawerNavigator({
                             <View style={styles.btnContainer}>
                                 <TouchableOpacity onPress={() => {
                                     props.screenProps.actions.userLogin({});
+                                    props.navigation.dispatch(DrawerActions.toggleDrawer())
                                 }} style={styles.accountBtn}>
                                     <Text
                                         style={styles.accountBtnText}>{i18n('DrawerMenu.signOut', props.screenProps.locale)}</Text>
@@ -158,7 +161,8 @@ class App extends React.Component {
     render() {
         let {locale, user, actions} = this.props;
         return (
-            <MyApp
+            <View style={{flex: 1}}>
+                <FlashMessage position="top" /><MyApp
                 screenProps={
                     {
                         locale: locale,
@@ -166,6 +170,7 @@ class App extends React.Component {
                         actions: actions
                     }
                 }/>
+            </View>
         );
     }
 }

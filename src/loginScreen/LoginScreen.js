@@ -20,6 +20,8 @@ import * as localeActions from '../utils/redux/actions/changeLocale';
 import * as userActions from '../utils/redux/actions/userLogin';
 import Services from "../utils/services/Services";
 import CheckBox from '@react-native-community/checkbox';
+import {showMessage, hideMessage} from "react-native-flash-message";
+import Spinner from "react-native-loading-spinner-overlay";
 
 class LoginScreen extends React.Component {
     constructor(props) {
@@ -29,7 +31,8 @@ class LoginScreen extends React.Component {
             password: '',
             isUsernameFocused: false,
             isPasswordFocused: false,
-            isSecureTextEntry: true
+            isSecureTextEntry: false,
+            spinner: false
         }
     }
 
@@ -37,13 +40,39 @@ class LoginScreen extends React.Component {
 
     }
 
+    hideLoading = () => {
+        this.setState({spinner: false})
+    };
+
     onLoginPress = () => {
-        let {user, actions} = this.props;
-        Services.signIn({username: this.state.username, password: this.state.password}).then((res) => {
-            actions.userLogin(res.data);
-            this.props.navigation.goBack(null)
-        }).catch((error) => {
-            console.log('login error', error);
+        let {user, actions, locale} = this.props;
+        this.setState({spinner: true}, () => {
+            Services.signIn({username: this.state.username, password: this.state.password}).then((res) => {
+                this.hideLoading();
+                showMessage({
+                    message: i18n('Login.userLoginSuccessAlertTitle', locale),
+                    description: i18n('Login.userLoginSuccessAlertMessage', locale),
+                    type: "success",
+                    style: {textAlign: 'right', width: '100%', justifyContent: 'flex-end'},
+                    titleStyle: {textAlign: 'right', fontFamily: 'IRANSansMobileFaNum-Bold'},
+                    textStyle: {textAlign: 'right', fontFamily: 'IRANSansMobileFaNum-Light',},
+                    icon: {icon: "success", position: "right"}
+                });
+                actions.userLogin(res.data);
+                this.props.navigation.goBack(null);
+            }).catch((error) => {
+                console.log('login error', error);
+                this.hideLoading();
+                showMessage({
+                    message: i18n('Login.userLoginSuccessAlertTitle', locale),
+                    description: i18n('Login.userLoginErrorAlertMessage', locale),
+                    type: "danger",
+                    style: {textAlign: 'right', width: '100%', justifyContent: 'flex-end'},
+                    titleStyle: {textAlign: 'right', fontFamily: 'IRANSansMobileFaNum-Bold'},
+                    textStyle: {textAlign: 'right', fontFamily: 'IRANSansMobileFaNum-Light',},
+                    icon: {icon: "success", position: "right"}
+                });
+            })
         })
     };
 
@@ -102,6 +131,13 @@ class LoginScreen extends React.Component {
                 <SafeAreaView style={styles.topView}/>
                 <SafeAreaView>
                     <View>
+
+                        <Spinner
+                            visible={this.state.spinner}
+                            textContent={i18n('General.loading', locale)}
+                            textStyle={{fontFamily: 'IRANSansMobileFaNum-Bold', color: '#fff'}}
+                            overlayColor={'#000000dd'}
+                        />
                         <View style={styles.topBar}>
                             <View style={styles.topBarStart}>
                             </View>
@@ -120,7 +156,7 @@ class LoginScreen extends React.Component {
                                               style={{
                                                   height: '100%',
                                               }}>
-                        <ScrollView style={styles.container}>
+                            <ScrollView style={styles.container}>
 
                                 <View style={styles.inputContainer}>
                                     <View style={{
@@ -168,7 +204,8 @@ class LoginScreen extends React.Component {
                                         style={[styles.label, {color: '#a0a0a0'}]}>{i18n('Login.forgetPassword', locale)}</Text>
                                 </TouchableOpacity>
 
-                                <TouchableOpacity onPress={this.navigateToRegisterScreen} style={{width: '100%', alignItems: 'center', marginTop: 40}}>
+                                <TouchableOpacity onPress={this.navigateToRegisterScreen}
+                                                  style={{width: '100%', alignItems: 'center', marginTop: 40}}>
                                     <View style={{borderBottomColor: '#0f0', borderBottomWidth: 2, paddingBottom: 4}}>
                                         <Text
                                             style={[styles.label, {color: '#0f0'}]}>{i18n('Login.register', locale)}</Text>
@@ -190,8 +227,8 @@ class LoginScreen extends React.Component {
                                         fontFamily: 'IRANSansMobileFaNum-Bold'
                                     }}>{i18n('Login.login', locale)}</Text>
                                 </TouchableOpacity>
-                        </ScrollView>
-                    </KeyboardAvoidingView>
+                            </ScrollView>
+                        </KeyboardAvoidingView>
 
                     </View>
                 </SafeAreaView>
