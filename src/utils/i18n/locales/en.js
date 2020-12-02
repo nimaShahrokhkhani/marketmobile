@@ -4,7 +4,9 @@ export default {
         Products: 'Product List'
     },
     DrawerMenu: {
-        loginOrSignIn: 'Login / SignIn'
+        loginOrSignIn: 'Login / SignIn',
+        signOut: 'Sign Out',
+        manageAccount: 'Manage Account'
     },
     HomeScreen: {
         top‌Brands: 'Top Brands',
@@ -19,5 +21,21 @@ export default {
         comments: 'Comments',
         color: 'Color',
         addToShoppingCart: 'Add to shopping cart'
+    },
+    Login: {
+        login: 'Login',
+        username: 'Username',
+        password: 'Password',
+        showPassword: 'Show password',
+        forgetPassword: 'I have forgotten my password!',
+        register: 'Register'
+    },
+    Register: {
+        username: 'Username',
+        password: 'Password',
+        email: 'Email',
+        phoneNumber: 'PhoneNumber',
+        birthday: 'Birthday',
+        register: 'Register'
     }
 }

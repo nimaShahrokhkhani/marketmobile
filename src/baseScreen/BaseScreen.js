@@ -4,6 +4,7 @@ import React from 'react';
 import {connect} from 'react-redux';
 import {bindActionCreators} from 'redux';
 import * as localeActions from '../utils/redux/actions/changeLocale';
+import * as userActions from '../utils/redux/actions/userLogin';
 import { DrawerActions } from 'react-navigation-drawer';
 
 class BaseScreen extends React.Component {
@@ -122,12 +123,14 @@ const styles = StyleSheet.create({
 });
 
 const mapStateToProps = state => ({
+    user: state.user.user,
     locale: state.locale.locale,
 });
 
 const ActionCreators = Object.assign(
     {},
     localeActions,
+    userActions,
 );
 
 const mapDispatchToProps = dispatch => ({

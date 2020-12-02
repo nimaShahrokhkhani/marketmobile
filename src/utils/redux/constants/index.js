@@ -1,1 +1,2 @@
 export const CURRENT_LOCALE = 'CURRENT_LOCALE';
+export const CURRENT_USER = 'CURRENT_USER';

@@ -17,9 +17,9 @@ import {i18n} from "../utils/i18n/I18n";
 import {connect} from 'react-redux';
 import {bindActionCreators} from 'redux';
 import * as localeActions from '../utils/redux/actions/changeLocale';
-import * as userActions from '../utils/redux/actions/userLogin';
 import Services from "../utils/services/Services";
 import CheckBox from '@react-native-community/checkbox';
+import * as userActions from "../utils/redux/actions/userLogin";
 
 class LoginScreen extends React.Component {
     constructor(props) {
@@ -27,9 +27,14 @@ class LoginScreen extends React.Component {
         this.state = {
             username: '',
             password: '',
+            email: '',
+            phoneNumber: '',
+            birthday: '',
             isUsernameFocused: false,
             isPasswordFocused: false,
-            isSecureTextEntry: true
+            isEmailFocused: false,
+            isPhoneNumberFocused: false,
+            isBirthdayFocused: false
         }
     }
 
@@ -37,14 +42,27 @@ class LoginScreen extends React.Component {
 
     }
 
-    onLoginPress = () => {
+    signUp = () => {
         let {user, actions} = this.props;
-        Services.signIn({username: this.state.username, password: this.state.password}).then((res) => {
-            actions.userLogin(res.data);
+        let {username, password, email, phoneNumber, birthday} = this.state;
+        const data = new FormData();
+        data.append('username', username);
+        data.append('password', password);
+        data.append('email', email);
+        data.append('phoneNumber', phoneNumber);
+        data.append('birthday', birthday);
+        Services.insertUser(data).then((response) => {
+            actions.userLogin({
+                username,
+                password,
+                email,
+                phoneNumber,
+                birthday
+            });
             this.props.navigation.goBack(null)
         }).catch((error) => {
-            console.log('login error', error);
-        })
+            console.log(error)
+        });
     };
 
     onUsernameTextChange = (text) => {
@@ -56,6 +74,24 @@ class LoginScreen extends React.Component {
     onPasswordTextChange = (text) => {
         this.setState({
             password: text
+        })
+    };
+
+    onEmailTextChange = (text) => {
+        this.setState({
+            email: text
+        })
+    };
+
+    onPhoneNumberTextChange = (text) => {
+        this.setState({
+            phoneNumber: text
+        })
+    };
+
+    onBirthdayTextChange = (text) => {
+        this.setState({
+            birthday: text
         })
     };
 
@@ -71,6 +107,24 @@ class LoginScreen extends React.Component {
         })
     };
 
+    onEmailFocus = () => {
+        this.setState({
+            isEmailFocused: true
+        })
+    };
+
+    onPhoneNumberFocus = () => {
+        this.setState({
+            isPhoneNumberFocused: true
+        })
+    };
+
+    onBirthdayFocus = () => {
+        this.setState({
+            isBirthdayFocused: true
+        })
+    };
+
     onUsernameBlur = () => {
         this.setState({
             isUsernameFocused: false
@@ -83,19 +137,27 @@ class LoginScreen extends React.Component {
         })
     };
 
-    onShowPasswordChange = () => {
+    onEmailBlur = () => {
         this.setState({
-            isSecureTextEntry: !this.state.isSecureTextEntry
+            isEmailFocused: false
         })
     };
 
-    navigateToRegisterScreen = () => {
-        this.props.navigation.navigate('RegisterScreen')
+    onPhoneNumberBlur = () => {
+        this.setState({
+            isPhoneNumberFocused: false
+        })
+    };
+
+    onBirthdayBlur = () => {
+        this.setState({
+            isBirthdayFocused: false
+        })
     };
 
     render() {
         const {locale} = this.props;
-        let {username, password, isUsernameFocused, isPasswordFocused, isSecureTextEntry} = this.state;
+        let {username, password, isUsernameFocused, isPasswordFocused, email, phoneNumber, birthday, isBirthdayFocused, isPhoneNumberFocused, isEmailFocused} = this.state;
         return (
             <View>
                 <StatusBar backgroundColor="#13213c" barStyle="light-content"/>
@@ -106,7 +168,7 @@ class LoginScreen extends React.Component {
                             <View style={styles.topBarStart}>
                             </View>
                             <View style={styles.topBarEnd}>
-                                <Text style={styles.screenTitle}>{i18n('Login.login', locale)}</Text>
+                                <Text style={styles.screenTitle}>{i18n('Register.register', locale)}</Text>
                                 <TouchableOpacity onPress={() => this.props.navigation.goBack(null)}
                                                   style={styles.closeContainer}>
                                     <Image
@@ -120,7 +182,7 @@ class LoginScreen extends React.Component {
                                               style={{
                                                   height: '100%',
                                               }}>
-                        <ScrollView style={styles.container}>
+                            <ScrollView style={styles.container}>
 
                                 <View style={styles.inputContainer}>
                                     <View style={{
@@ -132,7 +194,7 @@ class LoginScreen extends React.Component {
                                     }}>
                                         <TextInput onBlur={this.onUsernameBlur}
                                                    onFocus={this.onUsernameFocus}
-                                                   style={styles.input} placeholder={i18n('Login.username', locale)}
+                                                   style={styles.input} placeholder={i18n('Register.username', locale)}
                                                    value={username} onChangeText={this.onUsernameTextChange}/>
                                         <Image source={require('../images/contact.png')}/>
                                     </View>
@@ -146,35 +208,64 @@ class LoginScreen extends React.Component {
                                         alignItems: 'center',
                                         justifyContent: 'center'
                                     }}>
-                                        <TextInput secureTextEntry={!isSecureTextEntry}
-                                                   onBlur={this.onPasswordBlur}
+                                        <TextInput onBlur={this.onPasswordBlur}
                                                    onFocus={this.onPasswordFocus}
-                                                   style={styles.input} placeholder={i18n('Login.password', locale)}
+                                                   style={styles.input} placeholder={i18n('Register.password', locale)}
                                                    value={password} onChangeText={this.onPasswordTextChange}/>
                                         <Image source={require('../images/password.png')}/>
                                     </View>
                                 </View>
 
-                                <View style={styles.checkboxContainer}>
-                                    <Text style={styles.label}>{i18n('Login.showPassword', locale)}</Text>
-                                    <CheckBox
-                                        value={isSecureTextEntry}
-                                        onValueChange={this.onShowPasswordChange}
-                                        style={styles.checkbox}
-                                    />
-                                </View>
-                                <TouchableOpacity style={{width: '100%', alignItems: 'center', marginTop: 20}}>
-                                    <Text
-                                        style={[styles.label, {color: '#a0a0a0'}]}>{i18n('Login.forgetPassword', locale)}</Text>
-                                </TouchableOpacity>
-
-                                <TouchableOpacity onPress={this.navigateToRegisterScreen} style={{width: '100%', alignItems: 'center', marginTop: 40}}>
-                                    <View style={{borderBottomColor: '#0f0', borderBottomWidth: 2, paddingBottom: 4}}>
-                                        <Text
-                                            style={[styles.label, {color: '#0f0'}]}>{i18n('Login.register', locale)}</Text>
+                                <View style={styles.inputContainer}>
+                                    <View style={{
+                                        borderBottomWidth: 2,
+                                        borderBottomColor: isEmailFocused ? '#0f0' : '#f0f0f0',
+                                        flexDirection: 'row',
+                                        alignItems: 'center',
+                                        justifyContent: 'center'
+                                    }}>
+                                        <TextInput onBlur={this.onEmailBlur}
+                                                   onFocus={this.onEmailFocus}
+                                                   style={styles.input} placeholder={i18n('Register.email', locale)}
+                                                   value={email} onChangeText={this.onEmailTextChange}/>
+                                        <Image source={require('../images/email.png')}/>
                                     </View>
-                                </TouchableOpacity>
-                                <TouchableOpacity onPress={this.onLoginPress} style={{
+                                </View>
+
+                                <View style={styles.inputContainer}>
+                                    <View style={{
+                                        borderBottomWidth: 2,
+                                        borderBottomColor: isPhoneNumberFocused ? '#0f0' : '#f0f0f0',
+                                        flexDirection: 'row',
+                                        alignItems: 'center',
+                                        justifyContent: 'center'
+                                    }}>
+                                        <TextInput onBlur={this.onPhoneNumberBlur}
+                                                   onFocus={this.onPhoneNumberFocus}
+                                                   style={styles.input} placeholder={i18n('Register.phoneNumber', locale)}
+                                                   value={phoneNumber} onChangeText={this.onPhoneNumberTextChange}/>
+                                        <Image source={require('../images/phoneNumber.png')}/>
+                                    </View>
+                                </View>
+
+                                <View style={styles.inputContainer}>
+                                    <View style={{
+                                        borderBottomWidth: 2,
+                                        borderBottomColor: isBirthdayFocused ? '#0f0' : '#f0f0f0',
+                                        flexDirection: 'row',
+                                        alignItems: 'center',
+                                        justifyContent: 'center'
+                                    }}>
+                                        <TextInput onBlur={this.onBirthdayBlur}
+                                                   onFocus={this.onBirthdayFocus}
+                                                   style={styles.input} placeholder={i18n('Register.birthday', locale)}
+                                                   value={birthday} onChangeText={this.onBirthdayTextChange}/>
+                                        <Image source={require('../images/calendar.png')}/>
+                                    </View>
+                                </View>
+
+                                <TouchableOpacity onPress={this.signUp}
+                                    style={{
                                     alignSelf: 'center',
                                     backgroundColor: '#0f0',
                                     width: '80%',
@@ -188,10 +279,10 @@ class LoginScreen extends React.Component {
                                         color: '#fff',
                                         fontSize: 20,
                                         fontFamily: 'IRANSansMobileFaNum-Bold'
-                                    }}>{i18n('Login.login', locale)}</Text>
+                                    }}>{i18n('Register.register', locale)}</Text>
                                 </TouchableOpacity>
-                        </ScrollView>
-                    </KeyboardAvoidingView>
+                            </ScrollView>
+                        </KeyboardAvoidingView>
 
                     </View>
                 </SafeAreaView>

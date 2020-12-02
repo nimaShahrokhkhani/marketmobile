@@ -14,6 +14,9 @@ import {connect} from 'react-redux';
 import {bindActionCreators} from 'redux';
 import * as localeActions from './src/utils/redux/actions/changeLocale';
 import ProductsCategoryScreen from "./src/productsCategoryScreen/ProductsCategoryScreen";
+import LoginScreen from "./src/loginScreen/LoginScreen";
+import RegisterScreen from "./src/registerScreen/RegisterScreen";
+import * as userActions from "./src/utils/redux/actions/userLogin";
 
 const MyDrawerNavigator = createDrawerNavigator({
     HomeScreen: {
@@ -21,7 +24,8 @@ const MyDrawerNavigator = createDrawerNavigator({
         navigationOptions: (props) => {
             return ({
                 drawerLabel: () => (
-                    <Text style={{fontFamily: 'IRANSansMobileFaNum-Bold'}}>{i18n('Menu.Home', props.screenProps.locale)}</Text>
+                    <Text
+                        style={{fontFamily: 'IRANSansMobileFaNum-Bold'}}>{i18n('Menu.Home', props.screenProps.locale)}</Text>
                 ),
                 drawerIcon: ({tintColor}) => (
                     <Image
@@ -37,7 +41,8 @@ const MyDrawerNavigator = createDrawerNavigator({
         navigationOptions: (props) => {
             return ({
                 drawerLabel: () => (
-                    <Text style={{fontFamily: 'IRANSansMobileFaNum-Bold'}}>{i18n('Menu.Products', props.screenProps.locale)}</Text>
+                    <Text
+                        style={{fontFamily: 'IRANSansMobileFaNum-Bold'}}>{i18n('Menu.Products', props.screenProps.locale)}</Text>
                 ),
                 drawerIcon: ({tintColor}) => (
                     <Image
@@ -62,6 +67,25 @@ const MyDrawerNavigator = createDrawerNavigator({
             return ({
                 drawerLabel: () => null
             })
+        }
+    },
+    LoginScreen: {
+        screen: LoginScreen,
+        navigationOptions: (props) => {
+            return ({
+                drawerLabel: () => null,
+                drawerLockMode: 'locked-closed'
+            })
+        },
+        mode: 'modal'
+    },
+    RegisterScreen: {
+        screen: RegisterScreen,
+        navigationOptions: (props) => {
+            return ({
+                drawerLabel: () => null,
+                drawerLockMode: 'locked-closed'
+            })
         },
         mode: 'modal'
     },
@@ -70,14 +94,34 @@ const MyDrawerNavigator = createDrawerNavigator({
         <View style={{flex: 1}}>
             <SafeAreaView style={{flex: 1, backgroundColor: '#13213c'}}>
                 <View style={styles.drawerTopBar}>
-                    <TouchableOpacity style={styles.contactContainer}>
-                        <Text style={{
-                            color: '#fff',
-                            marginEnd: 10
-                        }}>{i18n('DrawerMenu.loginOrSignIn', props.screenProps.locale)}</Text>
-                        <Image source={require('./src/images/contact.png')}
-                               style={styles.icon}/>
-                    </TouchableOpacity>
+                    {(props.screenProps.user && !(Object.keys(props.screenProps.user).length === 0 && props.screenProps.user.constructor === Object)) ?
+                        <View style={styles.userLoginContainer}>
+                            <Image source={require('./src/images/user-128.png')}
+                                   style={styles.userIcon}/>
+                            <Text style={styles.username}>{props.screenProps.user.username}</Text>
+                            <View style={styles.btnContainer}>
+                                <TouchableOpacity onPress={() => {
+                                    props.screenProps.actions.userLogin({});
+                                }} style={styles.accountBtn}>
+                                    <Text
+                                        style={styles.accountBtnText}>{i18n('DrawerMenu.signOut', props.screenProps.locale)}</Text>
+                                </TouchableOpacity>
+                                <TouchableOpacity style={styles.accountBtn}>
+                                    <Text
+                                        style={styles.accountBtnText}>{i18n('DrawerMenu.manageAccount', props.screenProps.locale)}</Text>
+                                </TouchableOpacity>
+                            </View>
+                        </View> :
+                        <TouchableOpacity onPress={() => props.navigation.navigate('LoginScreen')}
+                                          style={styles.contactContainer}>
+                            <Text style={{
+                                color: '#fff',
+                                marginEnd: 10
+                            }}>{i18n('DrawerMenu.loginOrSignIn', props.screenProps.locale)}</Text>
+                            <Image source={require('./src/images/contact.png')}
+                                   style={styles.icon}/>
+                        </TouchableOpacity>
+                    }
                 </View>
                 <ScrollView style={{flex: 1, backgroundColor: 'rgba(252,251,245,1)'}}>
                     <DrawerItems {...props} />
@@ -104,7 +148,7 @@ const MyDrawerNavigator = createDrawerNavigator({
         topView: {
             backgroundColor: '#13213c',
             flex: 0
-        },
+        }
     },
 });
 
@@ -112,26 +156,37 @@ const MyApp = createAppContainer(MyDrawerNavigator);
 
 class App extends React.Component {
     render() {
-        let {locale} = this.props;
+        let {locale, user, actions} = this.props;
         return (
             <MyApp
-                screenProps={{locale: locale}}/>
+                screenProps={
+                    {
+                        locale: locale,
+                        user: user,
+                        actions: actions
+                    }
+                }/>
         );
     }
 }
 
 const styles = StyleSheet.create({
     drawerTopBar: {
-        height: 100,
         flexDirection: 'row',
         backgroundColor: '#13213c',
         alignItems: 'flex-end',
-        justifyContent: 'flex-end'
+        justifyContent: 'flex-end',
+        paddingTop: 10
     },
     icon: {
         tintColor: '#fff',
         width: 20,
         height: 20
+    },
+    userIcon: {
+        tintColor: '#fff',
+        width: 60,
+        height: 60
     },
     iconMenu: {
         tintColor: '#fff',
@@ -145,15 +200,43 @@ const styles = StyleSheet.create({
         justifyContent: 'center',
         marginHorizontal: 20,
         marginBottom: 30,
+    },
+    userLoginContainer: {
+        width: '100%',
+        alignItems: 'center',
+        justifyContent: 'center',
+        marginBottom: 30,
+        marginTop: 10
+    },
+    username: {
+        fontFamily: 'IRANSansMobileFaNum-Bold',
+        color: '#fff',
+        marginTop: 10
+    },
+    btnContainer: {
+        flexDirection: 'row',
+        marginTop: 10
+    },
+    accountBtnText: {
+        fontFamily: 'IRANSansMobileFaNum-Light',
+        fontSize: 12,
+    },
+    accountBtn: {
+        padding: 10,
+        backgroundColor: '#fff',
+        borderRadius: 20,
+        marginHorizontal: 2
     }
 });
 const mapStateToProps = state => ({
     locale: state.locale.locale,
+    user: state.user.user,
 });
 
 const ActionCreators = Object.assign(
     {},
     localeActions,
+    userActions
 );
 
 const mapDispatchToProps = dispatch => ({

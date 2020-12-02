@@ -41,7 +41,7 @@ class ProductDetailsScreen extends React.Component {
         const {locale} = this.props;
         return (
             <View style={{flexDirection: 'row'}}>
-                <TouchableOpacity onPress={() => this.props.navigation.goBack()} style={{
+                <TouchableOpacity style={{
                     backgroundColor: '#fff',
                     flexDirection: 'row',
                     justifyContent: 'center',
@@ -181,10 +181,6 @@ class ProductDetailsScreen extends React.Component {
                         <View style={{alignItems: 'flex-start', width: '100%', padding: 20}}>
                             <StarRating
                                 disabled={false}
-                                emptyStar={'ios-star-outline'}
-                                fullStar={'ios-star'}
-                                halfStar={'ios-star-half'}
-                                iconSet={'Ionicons'}
                                 maxStars={5}
                                 rating={this.state.starCount}
                                 selectedStar={(rating) => this.onStarRatingPress(rating)}
