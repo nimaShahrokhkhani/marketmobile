@@ -255,7 +255,7 @@ class HomeScreen extends React.Component {
                             horizontal={true}
                             renderItem={this.renderBestProductItem}/>
                     </View>
-                    <View style={{marginBottom: Platform.OS === 'ios' ? 200 : 100}}>
+                    <View style={{marginBottom: 100}}>
                         <View style={{alignItems: 'flex-end'}}>
                             <Text style={styles.listTitle}>{i18n('HomeScreen.newCollection', locale)}</Text>
                         </View>

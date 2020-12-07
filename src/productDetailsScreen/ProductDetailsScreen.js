@@ -4,6 +4,7 @@ import BaseScreen from "../baseScreen/BaseScreen";
 import Services from "../utils/services/Services";
 import {i18n} from '../utils/i18n/I18n'
 import * as localeActions from "../utils/redux/actions/changeLocale";
+import * as shoppingCartActions from "../utils/redux/actions/addToShoppingCart";
 import {bindActionCreators} from "redux";
 import {connect} from 'react-redux';
 import StarRating from 'react-native-star-rating';
@@ -131,7 +132,8 @@ class ProductDetailsScreen extends React.Component {
                     <Text style={{color: '#ff5d07', fontSize: 20, fontFamily: 'IRANSansMobileFaNum-Bold'}}>
                         {product.price.replace(/\B(?=(\d{3})+(?!\d))/g, ",") + ' ' + i18n('General.currency', locale)}</Text>
                 </View>
-                <TouchableOpacity style={{
+                <TouchableOpacity onPress={this.addToShoppingCart}
+                    style={{
                     flexDirection: 'row',
                     justifyContent: 'center',
                     alignItems: 'center',
@@ -166,6 +168,13 @@ class ProductDetailsScreen extends React.Component {
         }
     };
 
+    addToShoppingCart = () => {
+        let {actions, navigation} = this.props;
+        let {product} = this.props.navigation.state.params;
+        actions.addProduct(product);
+        navigation.navigate('ShoppingCartScreen')
+    };
+
     onStarRatingPress(rating) {
         this.setState({
             starCount: rating
@@ -176,7 +185,7 @@ class ProductDetailsScreen extends React.Component {
         let {product} = this.props.navigation.state.params;
         return (
             <BaseScreen navigation={this.props.navigation}>
-                <ScrollView>
+                <ScrollView contentContainerStyle={{flexGrow: 1}}>
                     <View style={{alignItems: 'center'}}>
                         <View style={{alignItems: 'flex-start', width: '100%', padding: 20}}>
                             <StarRating
@@ -261,6 +270,7 @@ const mapStateToProps = state => ({
 const ActionCreators = Object.assign(
     {},
     localeActions,
+    shoppingCartActions
 );
 
 const mapDispatchToProps = dispatch => ({

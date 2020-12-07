@@ -43,5 +43,16 @@ export default {
         register: 'Register',
         userRegisterSuccessAlertTitle: 'Register User',
         userRegisterSuccessAlertMessage: 'Successfully user registered!!!',
+    },
+    ShoppingCart: {
+        shoppingCart: 'Shopping Cart',
+        totalAmount: 'Total amount',
+        continuePay: 'Continue pay process...',
+        brand: 'Brand',
+        company: 'Company',
+        count: 'Count',
+        productPrice: 'Product Price',
+        totalPrice: 'Total price',
+        delete: 'Delete'
     }
 }

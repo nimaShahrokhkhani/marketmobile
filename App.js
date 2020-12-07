@@ -16,6 +16,7 @@ import * as localeActions from './src/utils/redux/actions/changeLocale';
 import ProductsCategoryScreen from "./src/productsCategoryScreen/ProductsCategoryScreen";
 import LoginScreen from "./src/loginScreen/LoginScreen";
 import RegisterScreen from "./src/registerScreen/RegisterScreen";
+import ShoppingCartScreen from "./src/shoppingCartScreen/ShoppingCartScreen";
 import * as userActions from "./src/utils/redux/actions/userLogin";
 import FlashMessage from "react-native-flash-message";
 import { DrawerActions } from 'react-navigation-drawer';
@@ -70,6 +71,15 @@ const MyDrawerNavigator = createDrawerNavigator({
                 drawerLabel: () => null
             })
         }
+    },
+    ShoppingCartScreen: {
+        screen: ShoppingCartScreen,
+        navigationOptions: (props) => {
+            return ({
+                drawerLabel: () => null
+            })
+        },
+        mode: 'modal'
     },
     LoginScreen: {
         screen: LoginScreen,

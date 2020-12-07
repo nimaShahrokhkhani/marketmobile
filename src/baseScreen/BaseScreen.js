@@ -5,7 +5,8 @@ import {connect} from 'react-redux';
 import {bindActionCreators} from 'redux';
 import * as localeActions from '../utils/redux/actions/changeLocale';
 import * as userActions from '../utils/redux/actions/userLogin';
-import { DrawerActions } from 'react-navigation-drawer';
+import * as shoppingCartActions from '../utils/redux/actions/addToShoppingCart';
+import {DrawerActions} from 'react-navigation-drawer';
 
 class BaseScreen extends React.Component {
 
@@ -15,20 +16,42 @@ class BaseScreen extends React.Component {
     };
 
     render() {
-        const {locale, children} = this.props;
+        let totalShoppingCartProductsCount = 0;
+        const {locale, products, children, navigation} = this.props;
+        products && products.length > 0 && products.map(product => {
+            totalShoppingCartProductsCount += product.count;
+        });
         return (
-            <View>
-                <StatusBar backgroundColor="#13213c" barStyle="light-content" />
+            <View style={{flex: 1}}>
+                <StatusBar backgroundColor="#13213c" barStyle="light-content"/>
                 <SafeAreaView style={styles.topView}/>
-                <SafeAreaView>
+                <SafeAreaView style={{flex: 1}}>
                     <View style={styles.container}>
                         <View style={styles.topBar}>
                             <View style={styles.topBarStart}>
-                                <TouchableOpacity style={styles.shoppingCartContainer}>
+                                <TouchableOpacity onPress={() => navigation.navigate('ShoppingCartScreen')}
+                                                  style={styles.shoppingCartContainer}>
                                     <Image
                                         source={require('../images/shopping-cart.png')}
                                         style={styles.icon}
                                     />
+                                    <View style={{
+                                        position: 'absolute',
+                                        alignItems: 'center',
+                                        justifyContent: 'center',
+                                        width: 16,
+                                        height: 16,
+                                        borderRadius: 8,
+                                        backgroundColor: '#fff',
+                                        right: -2,
+                                        top: -12
+                                    }}>
+                                        <Text style={{
+                                            fontSize: 11,
+                                            color: '#13213c',
+                                            fontFamily: 'IRANSansMobileFaNum-Light'
+                                        }}>{products ? products.length : 0}</Text>
+                                    </View>
                                 </TouchableOpacity>
                                 <TouchableOpacity style={styles.localizationContainer} onPress={this.changeLocale}>
                                     <Image
@@ -44,7 +67,8 @@ class BaseScreen extends React.Component {
                                 </TouchableOpacity>
                             </View>
                             <View style={styles.topBarEnd}>
-                                <TouchableOpacity style={styles.hamburgerContainer} onPress={() => this.props.navigation.dispatch(DrawerActions.toggleDrawer())}>
+                                <TouchableOpacity style={styles.hamburgerContainer}
+                                                  onPress={() => this.props.navigation.dispatch(DrawerActions.toggleDrawer())}>
                                     <Image
                                         source={require('../images/hamburger_icon.png')}
                                         style={styles.iconSecondary}
@@ -67,7 +91,7 @@ class BaseScreen extends React.Component {
 const styles = StyleSheet.create({
     container: {
         width: '100%',
-        height: '100%'
+        height: '100%',
     },
     childrenContainer: {
         flex: 1,
@@ -80,6 +104,7 @@ const styles = StyleSheet.create({
         backgroundColor: '#13213c'
     },
     bottomView: {
+        backgroundColor: '#13213c',
         flex: 0
     },
     topView: {
@@ -125,12 +150,14 @@ const styles = StyleSheet.create({
 const mapStateToProps = state => ({
     user: state.user.user,
     locale: state.locale.locale,
+    products: state.products.products,
 });
 
 const ActionCreators = Object.assign(
     {},
     localeActions,
     userActions,
+    shoppingCartActions
 );
 
 const mapDispatchToProps = dispatch => ({

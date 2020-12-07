@@ -44,5 +44,16 @@ export default {
         userRegisterSuccessAlertTitle: 'ثبت نام کاربر',
         userRegisterSuccessAlertMessage: 'ثبت نام کاربر با موفقیت انجام شد!!!',
         userRegisterErrorAlertMessage: 'ثبت نام کاربر با خطا مواجه شده است!!!',
+    },
+    ShoppingCart: {
+        shoppingCart: 'سبد خرید',
+        totalAmount: 'جمع کل خرید',
+        continuePay: 'ادامه فرآیند خرید...',
+        brand: 'نام برند',
+        company: 'شرکت فروشنده',
+        count: 'تعداد',
+        productPrice: 'قیمت محصول',
+        totalPrice: 'قیمت کل',
+        delete: 'حذف'
     }
 }
