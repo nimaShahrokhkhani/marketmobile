@@ -21,17 +21,24 @@ class ProductScreen extends React.Component {
         this.props.navigation.setParams({
             locale: this.props.locale
         });
-        this.getProductList(0, 50)
+        this.props.navigation.addListener('didFocus', () => {
+            this.getProductList(0, 50)
+        });
     }
 
     getProductList(offset, length) {
-        let {category} = this.props.navigation.state.params;
+        let {category, name} = this.props.navigation.state.params;
         let query = {offset: offset, length: length};
-        if (category.subTypes && category.subTypes !== '') {
-            query["type"] = category.type;
-            query["subType"] = category.subTypes.split(',')[this.state.activeTab];
-        } else {
-            query["type"] = category.type;
+        if (category) {
+            if (category.subTypes && category.subTypes !== '') {
+                query["type"] = category.type;
+                query["subType"] = category.subTypes.split(',')[this.state.activeTab];
+            } else {
+                query["type"] = category.type;
+            }
+        }
+        if (name) {
+            query["name"] = name;
         }
         Services.searchProductsList(query).then((response) => {
             this.setState({
@@ -72,7 +79,8 @@ class ProductScreen extends React.Component {
     renderProductItem = ({item}) => {
         const {locale} = this.props;
         return (
-            <TouchableOpacity onPress={() => this.navigateToProductDetailScreen(item)} style={styles.productItemContainer}>
+            <TouchableOpacity onPress={() => this.navigateToProductDetailScreen(item)}
+                              style={styles.productItemContainer}>
                 <Image style={{
                     width: (Dimensions.get('window').width / 3) - 20,
                     height: 150,
@@ -111,7 +119,7 @@ class ProductScreen extends React.Component {
         let {productList} = this.state;
         return (
             <BaseScreen navigation={this.props.navigation}>
-                {category.subTypes && category.subTypes !== '' &&
+                {category && category.subTypes && category.subTypes !== '' &&
                 <View style={styles.categoryListContainer}>
                     <FlatList
                         ref="categoryTypeFlatList"

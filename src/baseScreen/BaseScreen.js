@@ -59,7 +59,7 @@ class BaseScreen extends React.Component {
                                         style={styles.iconSecondary}
                                     />
                                 </TouchableOpacity>
-                                <TouchableOpacity style={styles.searchContainer}>
+                                <TouchableOpacity style={styles.searchContainer} onPress={() => navigation.navigate('SearchScreen')}>
                                     <Image
                                         source={require('../images/search.png')}
                                         style={styles.icon}

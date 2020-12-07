@@ -15,7 +15,8 @@ export default {
     },
     General: {
         currency: 'Tomans',
-        loading: 'please wait...'
+        loading: 'please wait...',
+        search: 'Search...'
     },
     ProductDetail: {
         properties: 'Properties',

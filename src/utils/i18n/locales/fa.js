@@ -15,7 +15,8 @@ export default {
     },
     General: {
         currency: 'تومان',
-        loading: 'لطفا منتظر بمانید...'
+        loading: 'لطفا منتظر بمانید...',
+        search: 'جستجو...'
     },
     ProductDetail: {
         properties: 'مشخصات',

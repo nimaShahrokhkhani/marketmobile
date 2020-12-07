@@ -20,6 +20,7 @@ import ShoppingCartScreen from "./src/shoppingCartScreen/ShoppingCartScreen";
 import * as userActions from "./src/utils/redux/actions/userLogin";
 import FlashMessage from "react-native-flash-message";
 import { DrawerActions } from 'react-navigation-drawer';
+import SearchScreen from "./src/searchScreen/SearchScreen";
 
 const MyDrawerNavigator = createDrawerNavigator({
     HomeScreen: {
@@ -93,6 +94,16 @@ const MyDrawerNavigator = createDrawerNavigator({
     },
     RegisterScreen: {
         screen: RegisterScreen,
+        navigationOptions: (props) => {
+            return ({
+                drawerLabel: () => null,
+                drawerLockMode: 'locked-closed'
+            })
+        },
+        mode: 'modal'
+    },
+    SearchScreen: {
+        screen: SearchScreen,
         navigationOptions: (props) => {
             return ({
                 drawerLabel: () => null,
