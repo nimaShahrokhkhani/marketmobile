@@ -40,7 +40,6 @@ class LoginScreen extends React.Component {
     }
 
     onTotalChange = () => {
-        console.log('byeeeeeee')
         this.state.totalCount = 0;
         this.state.totalPrice = 0;
         this.props.products.map((product, i) => {
@@ -48,7 +47,6 @@ class LoginScreen extends React.Component {
                 this.state.totalCount = 0;
                 this.state.totalPrice = 0;
             }
-            console.log(product.count)
             this.state.totalCount += product.count;
             this.state.totalPrice += product.value.price * product.count;
         });
@@ -60,7 +58,6 @@ class LoginScreen extends React.Component {
 
     onDeleteBtnClick = (product) => {
         this.props.actions.deleteProduct(product.value);
-        console.log('hiiiiiiii')
         this.onTotalChange();
     };
 
@@ -76,7 +73,6 @@ class LoginScreen extends React.Component {
 
     renderProductItem = ({item, index}) => {
         const {locale} = this.props;
-        console.log('counttttttt:', this.props.products.find((product) => product.value.serialNumber === item.value.serialNumber).count)
         return (
             <View style={{
                 margin: 10, backgroundColor: '#fff', paddingVertical: 10, shadowColor: "#000",
