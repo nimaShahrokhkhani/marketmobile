@@ -127,8 +127,14 @@ export default class Services {
         return axios.post(`/blogs/edit`, requestData)
     }
 
+    static getMasterCategoryList(requestData) {
+        return axios.get(`/masterCategory/list`, requestData)
+    }
+
     static getProductCategoryList(requestData) {
-        return axios.get(`/productCategory/list`, requestData)
+        return axios.get(`/productCategory/list`, {
+            params: requestData
+        })
     }
 
     static async insertProductCategory(requestData) {

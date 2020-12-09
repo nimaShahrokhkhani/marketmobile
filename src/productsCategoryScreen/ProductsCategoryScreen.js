@@ -7,35 +7,85 @@ import * as localeActions from '../utils/redux/actions/changeLocale';
 import BaseScreen from "../baseScreen/BaseScreen";
 import Carousel from 'react-native-snap-carousel';
 import Services from "../utils/services/Services";
+import Spinner from "react-native-loading-spinner-overlay";
 
 class ProductsCategoryScreen extends React.Component {
 
     constructor(props) {
         super(props);
         this.state = {
-            categoryList: []
+            activeTab: 0,
+            categoryList: [],
+            masterCategories: [],
+            isLoading: false
         }
     }
 
-    getCategoryList() {
-        Services.getProductCategoryList().then(response => {
-            this.setState({
-                categoryList: response.data
+    getMasterCategoryList() {
+        this.setState({isLoading: true}, () => {
+            Services.getMasterCategoryList().then(response => {
+                this.setState({
+                    masterCategories: response.data
+                }, () => {
+                    this.getCategoryList(this.state.masterCategories[0].name)
+                })
+            }).catch(error => {
+                console.log(error);
+                this.hideLoading();
             })
-        }).catch(error => {
-            console.log(error)
         })
     }
+
+    getCategoryList(masterCategoryName) {
+        Services.getProductCategoryList({masterCategory: masterCategoryName}).then(response => {
+            this.setState({
+                categoryList: response.data
+            });
+            this.hideLoading();
+        }).catch(error => {
+            console.log(error);
+            this.hideLoading();
+        })
+    }
+
+    onMasterCategoryPress = (item, index) => {
+        if (index !== this.state.activeTab) {
+            this.setState({
+                activeTab: index,
+                productList: [],
+                isLoading: true
+            }, () => {
+                this.getCategoryList(item.name);
+            })
+        }
+    };
+
+    renderMasterCategoryItem = ({item, index}) => {
+        return (
+            <TouchableOpacity onPress={() => this.onMasterCategoryPress(item, index)}
+                              style={[styles.masterCategoryItemContainer, (this.state.activeTab === index && {
+                                  borderBottomWidth: 4,
+                                  borderBottomColor: '#ff5d07'
+                              })]}>
+                <Text style={{color: '#fff', fontFamily: 'IRANSansMobileFaNum-Light'}}>{item.name}</Text>
+            </TouchableOpacity>
+        )
+    };
 
     componentDidMount() {
         this.props.navigation.setParams({
             locale: this.props.locale
         });
-        this.getCategoryList();
+        //this.getCategoryList();
+        this.getMasterCategoryList();
     }
 
     navigateToProductsScreen = (item) => {
         this.props.navigation.navigate('ProductScreen', {category: item})
+    };
+
+    hideLoading = () => {
+        this.setState({isLoading: false})
     };
 
     renderCategoryItem = ({item}) => {
@@ -57,9 +107,26 @@ class ProductsCategoryScreen extends React.Component {
 
     render() {
         const {locale} = this.props;
-        const {categoryList} = this.state;
+        const {categoryList, masterCategories} = this.state;
         return (
             <BaseScreen navigation={this.props.navigation}>
+                <Spinner
+                    visible={this.state.isLoading}
+                    textContent={i18n('General.loading', locale)}
+                    textStyle={{fontFamily: 'IRANSansMobileFaNum-Bold', color: '#fff'}}
+                    overlayColor={'#000000dd'}
+                />
+                {masterCategories &&
+                <View style={styles.categoryListContainer}>
+                    <FlatList
+                        ref="masterCategoryFlatList"
+                        onContentSizeChange={() => this.refs.masterCategoryFlatList.scrollToEnd()}
+                        data={masterCategories}
+                        horizontal={true}
+                        renderItem={this.renderMasterCategoryItem}
+                        inverted={true}/>
+                </View>
+                }
                 <View style={styles.container}>
                     <FlatList
                         ref="categoryFlatList"
@@ -77,6 +144,10 @@ const styles = StyleSheet.create({
         width: '100%',
         backgroundColor: 'rgba(252,251,245,1)'
     },
+    masterCategoryItemContainer: {
+        paddingHorizontal: 10,
+        paddingVertical: 10,
+    },
     categoryItemContainer: {
         width: '100%',
         flexDirection: 'row',
@@ -86,6 +157,11 @@ const styles = StyleSheet.create({
         borderBottomWidth: 1,
         paddingHorizontal: 20,
         paddingVertical: 15
+    },
+    categoryListContainer: {
+        backgroundColor: '#13213c',
+        alignItems: 'flex-end',
+        width: '100%'
     },
 });
 

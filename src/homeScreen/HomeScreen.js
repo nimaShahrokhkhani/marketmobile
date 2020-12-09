@@ -39,7 +39,7 @@ class HomeScreen extends React.Component {
     }
 
     getCategoryList() {
-        Services.getProductCategoryList().then(response => {
+        Services.getMasterCategoryList().then(response => {
             this.setState({
                 categoryList: response.data
             })
@@ -105,7 +105,7 @@ class HomeScreen extends React.Component {
     renderCategoryItem = ({item}) => {
         return (
             <View style={styles.categoryItemContainer}>
-                <Text style={{color: '#FFF', fontFamily: 'IRANSansMobileFaNum-Light'}}>{item.type}</Text>
+                <Text style={{color: '#FFF', fontFamily: 'IRANSansMobileFaNum-Light'}}>{item.name}</Text>
             </View>
         )
     };
@@ -223,7 +223,7 @@ class HomeScreen extends React.Component {
                             inverted
                         />
                     </View>
-                    <View>
+                    <View style={{width: '100%', alignItems: 'flex-end'}}>
                         <FlatList
                             ref="categoryFlatList"
                             onContentSizeChange={() => this.refs.categoryFlatList.scrollToEnd()}
