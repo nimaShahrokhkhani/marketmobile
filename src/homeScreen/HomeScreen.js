@@ -102,11 +102,15 @@ class HomeScreen extends React.Component {
         return Math.round(value);
     }
 
+    navigateToProductCategoryScreen(masterCategory) {
+        this.props.navigation.navigate('ProductsCategoryScreen', {masterCategory});
+    }
+
     renderCategoryItem = ({item}) => {
         return (
-            <View style={styles.categoryItemContainer}>
+            <TouchableOpacity style={styles.categoryItemContainer} onPress={() => this.navigateToProductCategoryScreen(item.name)}>
                 <Text style={{color: '#FFF', fontFamily: 'IRANSansMobileFaNum-Light'}}>{item.name}</Text>
-            </View>
+            </TouchableOpacity>
         )
     };
 

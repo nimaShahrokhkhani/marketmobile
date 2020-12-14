@@ -22,9 +22,15 @@ class ProductsCategoryScreen extends React.Component {
     }
 
     getMasterCategoryList() {
+        let {masterCategory} = this.props.navigation.state.params;
         this.setState({isLoading: true}, () => {
             Services.getMasterCategoryList().then(response => {
+                let activeTab = 0;
+                if (masterCategory) {
+                    activeTab = response.data.findIndex(category => category.name === masterCategory)
+                }
                 this.setState({
+                    activeTab: activeTab,
                     masterCategories: response.data
                 }, () => {
                     this.getCategoryList(this.state.masterCategories[0].name)
@@ -76,7 +82,6 @@ class ProductsCategoryScreen extends React.Component {
         this.props.navigation.setParams({
             locale: this.props.locale
         });
-        //this.getCategoryList();
         this.getMasterCategoryList();
     }
 
@@ -110,12 +115,6 @@ class ProductsCategoryScreen extends React.Component {
         const {categoryList, masterCategories} = this.state;
         return (
             <BaseScreen navigation={this.props.navigation}>
-                <Spinner
-                    visible={this.state.isLoading}
-                    textContent={i18n('General.loading', locale)}
-                    textStyle={{fontFamily: 'IRANSansMobileFaNum-Bold', color: '#fff'}}
-                    overlayColor={'#000000dd'}
-                />
                 {masterCategories &&
                 <View style={styles.categoryListContainer}>
                     <FlatList
@@ -128,6 +127,12 @@ class ProductsCategoryScreen extends React.Component {
                 </View>
                 }
                 <View style={styles.container}>
+                    <Spinner
+                        visible={this.state.isLoading}
+                        textContent={i18n('General.loading', locale)}
+                        textStyle={{fontFamily: 'IRANSansMobileFaNum-Bold', color: '#fff'}}
+                        overlayColor={'#000000dd'}
+                    />
                     <FlatList
                         ref="categoryFlatList"
                         onContentSizeChange={() => this.refs.categoryFlatList.scrollToEnd()}

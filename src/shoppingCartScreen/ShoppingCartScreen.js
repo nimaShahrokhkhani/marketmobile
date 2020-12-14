@@ -158,7 +158,7 @@ class LoginScreen extends React.Component {
                     borderColor: '#e0e0e0',
                     padding: 5
                 }}>
-                    <View style={{flex: 1}}>
+                    <View style={{flex: 1, alignItems: 'flex-start'}}>
                         <Text style={{
                             fontFamily: 'IRANSansMobileFaNum-Light',
                             fontSize: 16,
@@ -186,7 +186,7 @@ class LoginScreen extends React.Component {
                     borderColor: '#e0e0e0',
                     padding: 5
                 }}>
-                    <View style={{flex: 1}}>
+                    <View style={{flex: 1, alignItems: 'flex-start'}}>
                         <Text style={{
                             fontFamily: 'IRANSansMobileFaNum-Light',
                             fontSize: 16,
@@ -205,7 +205,7 @@ class LoginScreen extends React.Component {
                         }}>{i18n('ShoppingCart.totalPrice', locale)}</Text>
                     </View>
                 </View>
-                <View style={{paddingStart: 10, paddingTop: 10}}>
+                <View style={{paddingStart: 10, paddingTop: 10, alignItems: 'flex-start'}}>
                     <TouchableOpacity onPress={() => this.onDeleteBtnClick(item)}>
                         <Text style={{
                             fontFamily: 'IRANSansMobileFaNum-Light',
@@ -245,7 +245,7 @@ class LoginScreen extends React.Component {
                         </View>
                         <View style={styles.totalAmount}>
 
-                            <View style={{flex: 1, justifyContent: 'flex-start', flexDirection: 'row'}}>
+                            <View style={{flex: 1, justifyContent: 'flex-start', alignItems: 'center', flexDirection: 'row'}}>
                                 <Text style={{
                                     fontSize: 16,
                                     fontFamily: 'IRANSansMobileFaNum-Bold',
