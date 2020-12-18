@@ -11,12 +11,10 @@
 		13B07FBC1A68108700A75B9A /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 13B07FB01A68108700A75B9A /* AppDelegate.m */; };
 		13B07FBF1A68108700A75B9A /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 13B07FB51A68108700A75B9A /* Images.xcassets */; };
 		13B07FC11A68108700A75B9A /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 13B07FB71A68108700A75B9A /* main.m */; };
-		228FF23F4A694D0FBFC8D73A /* FontAwesome5_Brands.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 42C55BF037D74584A2AF7B20 /* FontAwesome5_Brands.ttf */; };
 		2D02E4BC1E0B4A80006451C7 /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 13B07FB01A68108700A75B9A /* AppDelegate.m */; };
 		2D02E4BD1E0B4A84006451C7 /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 13B07FB51A68108700A75B9A /* Images.xcassets */; };
 		2D02E4BF1E0B4AB3006451C7 /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 13B07FB71A68108700A75B9A /* main.m */; };
 		2DCD954D1E0B4F2C00145EB5 /* MarketMobileTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 00E356F21AD99517003FC87E /* MarketMobileTests.m */; };
-		30EEF9AC57274CFFA5AA3817 /* MaterialCommunityIcons.ttf in Resources */ = {isa = PBXBuildFile; fileRef = D11E2827E6AE476AAC3BB5D8 /* MaterialCommunityIcons.ttf */; };
 		3CFA2481256ECEE5009EB226 /* IRANSansMobile-Light.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 3CFA2479256ECEE5009EB226 /* IRANSansMobile-Light.ttf */; };
 		3CFA2482256ECEE5009EB226 /* IRANSansMobile.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 3CFA247A256ECEE5009EB226 /* IRANSansMobile.ttf */; };
 		3CFA2483256ECEE5009EB226 /* IRANSansMobileFaNum-Bold.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 3CFA247B256ECEE5009EB226 /* IRANSansMobileFaNum-Bold.ttf */; };
@@ -25,28 +23,11 @@
 		3CFA2486256ECEE5009EB226 /* IRANSans-Light.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 3CFA247E256ECEE5009EB226 /* IRANSans-Light.ttf */; };
 		3CFA2487256ECEE5009EB226 /* IRANSansMobile-Bold.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 3CFA247F256ECEE5009EB226 /* IRANSansMobile-Bold.ttf */; };
 		3CFA2488256ECEE5009EB226 /* IRANSansMobile-Black.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 3CFA2480256ECEE5009EB226 /* IRANSansMobile-Black.ttf */; };
-		41781DC818734B2CA2BD3286 /* FontAwesome5_Regular.ttf in Resources */ = {isa = PBXBuildFile; fileRef = BEA3C3EAFED14937B347378D /* FontAwesome5_Regular.ttf */; };
-		57876EE8BA7647BEBD5E704B /* SimpleLineIcons.ttf in Resources */ = {isa = PBXBuildFile; fileRef = B95E15A05A7D47C0B467397D /* SimpleLineIcons.ttf */; };
-		65F0B52234844A96BA0D99EB /* Roboto_medium.ttf in Resources */ = {isa = PBXBuildFile; fileRef = A7677EA80F504282AB8607AA /* Roboto_medium.ttf */; };
 		7CCDD062F371C35B51D8FDFA /* libPods-MarketMobile-MarketMobileTests.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 7458A56ADFB06DE6B1943C31 /* libPods-MarketMobile-MarketMobileTests.a */; };
 		81AB9BB82411601600AC10FF /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 81AB9BB72411601600AC10FF /* LaunchScreen.storyboard */; };
-		81E55AC3989240C6B02956F9 /* Entypo.ttf in Resources */ = {isa = PBXBuildFile; fileRef = E20F6C72D8DF4777A3457CAF /* Entypo.ttf */; };
-		8B17177975664CD2B3EDF158 /* MaterialIcons.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 498E0DB32ECC4B699B9C3288 /* MaterialIcons.ttf */; };
-		95A0724807A4477198CC6E38 /* Octicons.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 1F6FA4DBDFF44B5D8BF52E54 /* Octicons.ttf */; };
-		A0D280AFA49F4D98A565BD64 /* FontAwesome.ttf in Resources */ = {isa = PBXBuildFile; fileRef = D796701720114EBF82E8D5FD /* FontAwesome.ttf */; };
-		A10ABCF3134A4BCFA785E683 /* Ionicons.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 6D4D1A89FFDA45A79A2BC487 /* Ionicons.ttf */; };
-		B023808F05564F3A99E03769 /* Feather.ttf in Resources */ = {isa = PBXBuildFile; fileRef = DC623271FCE648B39409BA67 /* Feather.ttf */; };
-		B12B7C0EB9A04A88BFCB5EC8 /* Foundation.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 9D0ED3CD94F54D52A479D734 /* Foundation.ttf */; };
 		B2B1D049DC081F67793221CC /* libPods-MarketMobile-tvOS.a in Frameworks */ = {isa = PBXBuildFile; fileRef = B210144013D7A6EC7D6CD5C3 /* libPods-MarketMobile-tvOS.a */; };
-		B421BE8E96404FA890BE953F /* EvilIcons.ttf in Resources */ = {isa = PBXBuildFile; fileRef = F9C4495A035E47458B4B6B5C /* EvilIcons.ttf */; };
-		B80A8F2C78EE4841AA54F290 /* FontAwesome5_Solid.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 3DF1BB7F8F5F49C98565B896 /* FontAwesome5_Solid.ttf */; };
 		C46CAB8AD4C1C7BA2FE39C9C /* libPods-MarketMobile.a in Frameworks */ = {isa = PBXBuildFile; fileRef = B9DE8D9DEC908ECDBFB09C18 /* libPods-MarketMobile.a */; };
-		CB4C058EC18341E38CC2458E /* AntDesign.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 0B584BB9CF104F4FADE57268 /* AntDesign.ttf */; };
 		DA2F83A78EB25CB8DDB72CE3 /* libPods-MarketMobile-tvOSTests.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 60E2138E4EAAA2F213234B94 /* libPods-MarketMobile-tvOSTests.a */; };
-		E06FE3043B7F45079FDFBB46 /* Roboto.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 772692A63A0A4A3BA69E08BE /* Roboto.ttf */; };
-		EC9E237CAA3E42BFA8D27D8F /* rubicon-icon-font.ttf in Resources */ = {isa = PBXBuildFile; fileRef = E36A1C9166194F50A9A0D409 /* rubicon-icon-font.ttf */; };
-		EE0A66136EE546A08E780E21 /* Fontisto.ttf in Resources */ = {isa = PBXBuildFile; fileRef = DD853BF4D7894A0AAC9B25C3 /* Fontisto.ttf */; };
-		F12CA180F26846BEB21DEBB7 /* Zocial.ttf in Resources */ = {isa = PBXBuildFile; fileRef = F34C47F8E90E48DFA64213F4 /* Zocial.ttf */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -414,6 +395,7 @@
 						TestTargetID = 13B07F861A680F5B00A75B9A;
 					};
 					13B07F861A680F5B00A75B9A = {
+						DevelopmentTeam = G7PVWZ83G7;
 						LastSwiftMigration = 1120;
 					};
 					2D02E47A1E0B4A5D006451C7 = {
@@ -462,25 +444,6 @@
 			files = (
 				81AB9BB82411601600AC10FF /* LaunchScreen.storyboard in Resources */,
 				13B07FBF1A68108700A75B9A /* Images.xcassets in Resources */,
-				CB4C058EC18341E38CC2458E /* AntDesign.ttf in Resources */,
-				81E55AC3989240C6B02956F9 /* Entypo.ttf in Resources */,
-				B421BE8E96404FA890BE953F /* EvilIcons.ttf in Resources */,
-				B023808F05564F3A99E03769 /* Feather.ttf in Resources */,
-				A0D280AFA49F4D98A565BD64 /* FontAwesome.ttf in Resources */,
-				228FF23F4A694D0FBFC8D73A /* FontAwesome5_Brands.ttf in Resources */,
-				41781DC818734B2CA2BD3286 /* FontAwesome5_Regular.ttf in Resources */,
-				B80A8F2C78EE4841AA54F290 /* FontAwesome5_Solid.ttf in Resources */,
-				EE0A66136EE546A08E780E21 /* Fontisto.ttf in Resources */,
-				B12B7C0EB9A04A88BFCB5EC8 /* Foundation.ttf in Resources */,
-				A10ABCF3134A4BCFA785E683 /* Ionicons.ttf in Resources */,
-				30EEF9AC57274CFFA5AA3817 /* MaterialCommunityIcons.ttf in Resources */,
-				8B17177975664CD2B3EDF158 /* MaterialIcons.ttf in Resources */,
-				95A0724807A4477198CC6E38 /* Octicons.ttf in Resources */,
-				65F0B52234844A96BA0D99EB /* Roboto_medium.ttf in Resources */,
-				E06FE3043B7F45079FDFBB46 /* Roboto.ttf in Resources */,
-				EC9E237CAA3E42BFA8D27D8F /* rubicon-icon-font.ttf in Resources */,
-				57876EE8BA7647BEBD5E704B /* SimpleLineIcons.ttf in Resources */,
-				F12CA180F26846BEB21DEBB7 /* Zocial.ttf in Resources */,
 				3CFA2481256ECEE5009EB226 /* IRANSansMobile-Light.ttf in Resources */,
 				3CFA2482256ECEE5009EB226 /* IRANSansMobile.ttf in Resources */,
 				3CFA2483256ECEE5009EB226 /* IRANSansMobileFaNum-Bold.ttf in Resources */,
@@ -867,6 +830,7 @@
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CLANG_ENABLE_MODULES = YES;
 				CURRENT_PROJECT_VERSION = 1;
+				DEVELOPMENT_TEAM = G7PVWZ83G7;
 				ENABLE_BITCODE = NO;
 				INFOPLIST_FILE = MarketMobile/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
@@ -890,6 +854,7 @@
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CLANG_ENABLE_MODULES = YES;
 				CURRENT_PROJECT_VERSION = 1;
+				DEVELOPMENT_TEAM = G7PVWZ83G7;
 				INFOPLIST_FILE = MarketMobile/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				OTHER_LDFLAGS = (

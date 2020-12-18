@@ -208,4 +208,20 @@ export default class Services {
     static async deleteFactor(requestData) {
         return axios.post(`/factor/delete`, requestData)
     }
+
+    static getBannerSliderList(requestData) {
+        return axios.get(`/sliders/banner/list`, {
+            params: requestData
+        })
+    }
+
+    static getSaleSliderList(requestData) {
+        return axios.get(`/sliders/sale/list`, {
+            params: requestData
+        })
+    }
+
+    static getSliderImageDownloadUrl(fileName){
+        return this.baseUrl + `sliders/download?fileName=` + fileName;
+    }
 }

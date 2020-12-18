@@ -22,7 +22,7 @@ class ProductsCategoryScreen extends React.Component {
     }
 
     getMasterCategoryList() {
-        let {masterCategory} = this.props.navigation.state.params;
+        let masterCategory = this.props.navigation.state.params ? this.props.navigation.state.params.masterCategory : '';
         this.setState({isLoading: true}, () => {
             Services.getMasterCategoryList().then(response => {
                 let activeTab = 0;

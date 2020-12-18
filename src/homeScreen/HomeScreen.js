@@ -17,13 +17,8 @@ class HomeScreen extends React.Component {
             categoryList: [],
             newCollectionList: [],
             topBrandList: [],
-            bannerList: [
-                require('../images/bannerImages/slide1.jpg'),
-                require('../images/bannerImages/slide3.jpg'),
-                require('../images/bannerImages/slide4.jpg'),
-                require('../images/bannerImages/slide5.jpg'),
-                require('../images/bannerImages/slide6.jpg')
-            ]
+            bannerList: [],
+            saleSliderList: []
         }
     }
 
@@ -68,6 +63,22 @@ class HomeScreen extends React.Component {
         });
     }
 
+    getBannerSlider() {
+        Services.getBannerSliderList().then(response => {
+            this.setState({
+                bannerList: response.data
+            })
+        })
+    }
+
+    getSaleSlider() {
+        Services.getSaleSliderList().then(response => {
+            this.setState({
+                saleSliderList: response.data
+            })
+        })
+    }
+
     componentDidMount() {
         this.props.navigation.setParams({
             locale: this.props.locale
@@ -76,6 +87,8 @@ class HomeScreen extends React.Component {
         this.getCategoryList();
         this.getNewCollectionList();
         this.getTopBrandList();
+        this.getBannerSlider();
+        this.getSaleSlider();
     }
 
     changeLocale() {
@@ -93,7 +106,7 @@ class HomeScreen extends React.Component {
                 width: '100%',
                 height: undefined,
                 aspectRatio: 2.5
-            }} source={item}/>
+            }} source={{uri: Services.getSliderImageDownloadUrl(item.image)}}/>
         );
     };
 
@@ -211,7 +224,7 @@ class HomeScreen extends React.Component {
 
     render() {
         const {locale} = this.props;
-        const {newCollectionList, categoryList, bestProductList, bannerList, topBrandList} = this.state;
+        const {newCollectionList, categoryList, bestProductList, bannerList, topBrandList, saleSliderList} = this.state;
         return (
             <BaseScreen navigation={this.props.navigation}>
                 <ScrollView style={styles.container}>
@@ -234,6 +247,15 @@ class HomeScreen extends React.Component {
                             data={categoryList}
                             horizontal={true}
                             renderItem={this.renderCategoryItem}/>
+                    </View>
+                    <View>
+                        {saleSliderList && saleSliderList.map(saleSlider => (
+                            <Image style={{
+                                width: '100%',
+                                height: undefined,
+                                aspectRatio: 2.5
+                            }} source={{uri: Services.getSliderImageDownloadUrl(saleSlider.image)}}/>
+                        ))}
                     </View>
                     <View>
                         <View style={{alignItems: 'flex-end'}}>
